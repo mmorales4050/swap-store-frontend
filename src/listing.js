@@ -25,13 +25,13 @@ class Listing {
 
   html() {
     return `
-    <div class="col-sm">
-    <div class="card" style="width: 18rem;" >
-      <img src="${this.image}" class="card-img-top" alt="..." style="max-width: 100%; min-height: 14rem;">
-      <div class="card-body">
+    <div class="col-sm-4">
+    <div class="card" style="width: 18rem;">
+      <img src="${this.image}" class="card-img-top img-thumbnail img-fluid">
+      <div class="card-body bg-light">
         <h5 class="card-title">${this.name}</h5>
         <p class="card-text">${this.description}</p>
-        <a href="#" class="btn btn-primary">Learn More</a>
+        <a href="#" class="btn btn-success">Learn More</a>
       </div>
     </div>
     </div>
