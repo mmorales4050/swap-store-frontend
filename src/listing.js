@@ -25,7 +25,7 @@ class Listing {
 
   html() {
     return `
-    <div class="col-sm-4">
+    <div class="col-med-4">
     <div class="card" style="width: 18rem;">
       <img src="${this.image}" class="card-img-top img-thumbnail img-fluid">
       <div class="card-body bg-light">
