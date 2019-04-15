@@ -23,26 +23,19 @@ class Listing {
     })
   }
 
-  html1() {
-    return `<div id="${this.id}-listing" class="listing-card">
-      <div class="listing-name">${this.name}</div>
-      <img class="card-image" src="${this.image}">
-      <div class="listing-description">${this.description}</div>
-      <div class="listing-price">${this.price}</div>
-    </div>`
-  }
-
   html() {
-    return `<div class="container">
-    <div class="card" style="width: 18rem;">
-      <img src="${this.image}" class="card-img-top" alt="...">
+    return `
+    <div class="col-sm">
+    <div class="card" style="width: 18rem;" >
+      <img src="${this.image}" class="card-img-top" alt="..." style="max-width: 100%; min-height: 14rem;">
       <div class="card-body">
         <h5 class="card-title">${this.name}</h5>
         <p class="card-text">${this.description}</p>
         <a href="#" class="btn btn-primary">Learn More</a>
       </div>
     </div>
-    </div>`
+    </div>
+    `
   }
 
   static rendorAll() {
