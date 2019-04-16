@@ -23,30 +23,14 @@ class Listing {
     })
   }
 
-  html1() {
-    return `
-    <div class="col-med-5">
-    <div class="card" style="width: 18rem;">
-      <img src="${this.image}" class="card-img-top img-thumbnail img-fluid" style="  width: 300px;
-  height: 300px;
-  overflow: hidden;
-  position: relative;
-  margin: 10px 0;">
-      <div class="card-body bg-light">
-        <h5 class="card-title">${this.name}</h5>
-        <p class="card-text">${this.price}</p>
-        <a href="#" class="btn btn-success">Learn More</a>
-      </div>
-    </div>
-    </div>
-    `
-  }
   html() {
     return `
     <div class="col-md-4">
       <div class="card mb-4 shadow-sm">
         <img src="${this.image}" alt="" width="100%" height="225" background="#55595c" color="#eceeef" class="card-img-top" text="Thumbnail">
         <div class="card-body">
+        <h3 class="card-text">${this.name}</h3>
+        <h4 class="card-text">$${this.price}0</h4>
           <p class="card-text">${this.description}</p>
           <div class="d-flex justify-content-between align-items-center">
             <div class="btn-group">

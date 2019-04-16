@@ -25,11 +25,24 @@ body {
   height: 32rem;
 }
 .carousel-item > img {
-  position: absolute;
+  /* Set rules to fill background */
+  max-height: 32rem;
+  min-height: 32rem;
+  min-width: 500px;
+
+  /* Set up proportionate scaling */
+  width: 100%;
+  height: auto;
+
+  /* Set up positioning */
+  position: fixed;
   top: 0;
   left: 0;
-  min-width: 100%;
-  height: 32rem;
+  /* position: absolute;
+  top: 0;
+  left: 0;
+  max-width: 100%;
+  min-height: 32rem; */
 }
 
 
