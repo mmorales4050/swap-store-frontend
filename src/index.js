@@ -28,8 +28,10 @@ document.addEventListener("DOMContentLoaded", ()=> {
       event.preventDefault()
       var email = document.getElementById("inputEmail").value
       var username = document.getElementById("inputUsername").value
-      Vendor
-      displayAccountPage()
+      Vendor.fetchAll()
+      .then(vendors=> {
+        console.log(vendors)
+      })
     }
   })
 })
