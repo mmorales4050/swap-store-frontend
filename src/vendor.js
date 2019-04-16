@@ -1,0 +1,6 @@
+class Vendor {
+  constructor(vendor) {
+
+  }
+  
+}
