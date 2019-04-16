@@ -1,3 +1,5 @@
+const URL = "http://localhost:3000"
+
 document.addEventListener("DOMContentLoaded", ()=> {
   content = document.querySelector("#content")
 
@@ -29,8 +31,12 @@ document.addEventListener("DOMContentLoaded", ()=> {
       var email = document.getElementById("inputEmail").value
       var username = document.getElementById("inputUsername").value
       Vendor.fetchAll()
-      .then(vendors=> {
-        console.log(vendors)
+      .then(() => {
+        Vendor.all.forEach(vendor => {
+          if (vendor.userName === username && vendor.email === email) {
+            displayAccountPage()
+          }
+        })
       })
     }
   })
@@ -117,7 +123,7 @@ function displayLoginPage() {
   <label for="inputEmail" class="sr-only">Email address</label>
   <input type="email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus>
   <label for="inputUsername" class="sr-only">Password</label>
-  <input type="password" id="inputUsername" class="form-control" placeholder="Username" required>
+  <input type="username" id="inputUsername" class="form-control" placeholder="Username" required>
   <div class="checkbox mb-3">
   </div>
   <button class="btn btn-lg btn-primary btn-block" type="submit" id="sign-in">Sign in</button>
@@ -134,8 +140,8 @@ function displayAccountCreationPage() {
   <h1 class="h3 mb-3 font-weight-normal">Create Account</h1>
   <label for="inputEmail" class="sr-only">Email address</label>
   <input type="email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus>
-  <label for="inputUsername" class="sr-only">Password</label>
-  <input type="password" id="inputUsername" class="form-control" placeholder="Password" required>
+  <label for="inputUsername" class="sr-only">Username</label>
+  <input type="username" id="inputUsername" class="form-control" placeholder="Username" required>
   <div class="checkbox mb-3">
     <label>
       <input type="checkbox" value="remember-me"> Vendor Account
@@ -148,6 +154,7 @@ function displayAccountCreationPage() {
 }
 
 function displayHomePage() {
+  var featuredVendors = ""
   var homePage = `
   <!-- Custom Style Sheets -->
     <link rel="stylesheet" href="style/carousel.css">

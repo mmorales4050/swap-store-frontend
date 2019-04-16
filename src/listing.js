@@ -1,4 +1,4 @@
-const URL = "http://localhost:3000/listings"
+
 
 class Listing {
 
@@ -15,7 +15,7 @@ class Listing {
   }
 
   static fetchAll() {
-    return fetch(URL).then(response => response.json())
+    return fetch(URL + "/listings").then(response => response.json())
     .then(listings => {
       listings.forEach(listing => {
         new Listing(listing)
