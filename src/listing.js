@@ -23,7 +23,7 @@ class Listing {
     })
   }
 
-  html() {
+  html1() {
     return `
     <div class="col-med-5">
     <div class="card" style="width: 18rem;">
@@ -41,12 +41,31 @@ class Listing {
     </div>
     `
   }
+  html() {
+    return `
+    <div class="col-md-4">
+      <div class="card mb-4 shadow-sm">
+        <img src="${this.image}" alt="" width="100%" height="225" background="#55595c" color="#eceeef" class="card-img-top" text="Thumbnail">
+        <div class="card-body">
+          <p class="card-text">${this.description}</p>
+          <div class="d-flex justify-content-between align-items-center">
+            <div class="btn-group">
+              <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
+              <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
+            </div>
+            <small class="text-muted">9 mins</small>
+          </div>
+        </div>
+      </div>
+    </div>
+    `
+  }
 
   static rendorAll() {
     var html = ""
     Listing.all.forEach(listing => {
       html += listing.html()
     })
-    document.getElementById("container").innerHTML = html
+    document.getElementById("album-container").innerHTML = html
   }
 }

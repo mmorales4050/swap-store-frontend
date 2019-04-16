@@ -1,12 +1,12 @@
 document.addEventListener("DOMContentLoaded", ()=> {
   content = document.querySelector("#content")
-  // Listing.fetchAll()
-  // .then(Listing.rendorAll)
+
 
   // Event Listeners
   document.addEventListener("click", event => {
     if (event.target.id === "create-account") {
       event.preventDefault()
+      displayAccountCreationPage()
 
 
     }
@@ -18,14 +18,94 @@ document.addEventListener("DOMContentLoaded", ()=> {
       event.preventDefault()
       displayHomePage()
     }
+    else if (event.target.id === "listings") {
+      event.preventDefault()
+      displayListingPage()
+      Listing.fetchAll()
+      .then(Listing.rendorAll)
+    }
+    else if (event.target.id === "sign-in") {
+      event.preventDefault()
+      var email = document.getElementById("inputEmail").value
+      var username = document.getElementById("inputUsername").value
+      Vendor
+      displayAccountPage()
+    }
   })
 })
-//
-// function renderHomePage() {
-//   document.getElementById("home")
-//     var html = `
-//     `
-// }
+
+function displayListingPage() {
+  var listingPage = `
+  <main role="main">
+
+    <section class="jumbotron text-center">
+      <div class="container">
+        <h1 class="jumbotron-heading">Album example</h1>
+        <p class="lead text-muted">Something short and leading about the collection below—its contents, the creator, etc. Make it short and sweet, but not too short so folks don’t simply skip over it entirely.</p>
+        <p>
+          <a href="#" class="btn btn-primary my-2">Main call to action</a>
+          <a href="#" class="btn btn-secondary my-2">Secondary action</a>
+        </p>
+      </div>
+    </section>
+
+    <div class="album py-5 bg-light">
+      <div class="container">
+
+        <div class="row" id="album-container">
+      </div>
+    </div>
+
+  </main>
+
+  <footer class="text-muted">
+    <div class="container">
+      <p class="float-right">
+        <a href="#">Back to top</a>
+      </p>
+      <p>Album example is &copy; Bootstrap, but please download and customize it for yourself!</p>
+      <p>New to Bootstrap? <a href="{{ site.url }}/">Visit the homepage</a> or read our <a href="{{ site.baseurl }}/docs/{{ site.docs_version }}/getting-started/introduction/">getting started guide</a>.</p>
+    </div>
+  </footer>`
+  content.innerHTML = listingPage
+}
+
+function displayAccountPage() {
+  var listingPage = `
+  <main role="main">
+
+    <section class="jumbotron text-center">
+      <div class="container">
+        <h1 class="jumbotron-heading">Account Page</h1>
+        <p class="lead text-muted">Something short and leading about the collection below—its contents, the creator, etc. Make it short and sweet, but not too short so folks don’t simply skip over it entirely.</p>
+        <p>
+          <a href="#" class="btn btn-primary my-2">Main call to action</a>
+          <a href="#" class="btn btn-secondary my-2">Secondary action</a>
+        </p>
+      </div>
+    </section>
+
+    <div class="album py-5 bg-light">
+      <div class="container">
+
+        <div class="row" id="album-container">
+      </div>
+    </div>
+
+  </main>
+
+  <footer class="text-muted">
+    <div class="container">
+      <p class="float-right">
+        <a href="#">Back to top</a>
+      </p>
+      <p>Album example is &copy; Bootstrap, but please download and customize it for yourself!</p>
+      <p>New to Bootstrap? <a href="{{ site.url }}/">Visit the homepage</a> or read our <a href="{{ site.baseurl }}/docs/{{ site.docs_version }}/getting-started/introduction/">getting started guide</a>.</p>
+    </div>
+  </footer>`
+  content.innerHTML = listingPage
+}
+
 function displayLoginPage() {
   var loginForm = `
   <link rel="stylesheet" href="style/signin.css">
@@ -34,14 +114,32 @@ function displayLoginPage() {
   <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
   <label for="inputEmail" class="sr-only">Email address</label>
   <input type="email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus>
-  <label for="inputPassword" class="sr-only">Password</label>
-  <input type="password" id="inputPassword" class="form-control" placeholder="Password" required>
+  <label for="inputUsername" class="sr-only">Password</label>
+  <input type="password" id="inputUsername" class="form-control" placeholder="Username" required>
+  <div class="checkbox mb-3">
+  </div>
+  <button class="btn btn-lg btn-primary btn-block" type="submit" id="sign-in">Sign in</button>
+  <p class="mt-5 mb-3 text-muted">&copy; 2017-{{ site.time | date: "%Y" }}</p>
+</form>`
+  content.innerHTML = loginForm
+}
+
+function displayAccountCreationPage() {
+  var loginForm = `
+  <link rel="stylesheet" href="style/signin.css">
+  <form class="form-signin">
+  <img class="mb-4" src="https://cdn6.aptoide.com/imgs/1/6/d/16d5d8047a00e337c0a79cf2bd622793_icon.png?w=1000" alt="" width="72" height="72">
+  <h1 class="h3 mb-3 font-weight-normal">Create Account</h1>
+  <label for="inputEmail" class="sr-only">Email address</label>
+  <input type="email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus>
+  <label for="inputUsername" class="sr-only">Password</label>
+  <input type="password" id="inputUsername" class="form-control" placeholder="Password" required>
   <div class="checkbox mb-3">
     <label>
-      <input type="checkbox" value="remember-me"> Remember me
+      <input type="checkbox" value="remember-me"> Vendor Account
     </label>
   </div>
-  <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+  <button class="btn btn-lg btn-primary btn-block" type="submit" id="create-account">Create Account</button>
   <p class="mt-5 mb-3 text-muted">&copy; 2017-{{ site.time | date: "%Y" }}</p>
 </form>`
   content.innerHTML = loginForm
@@ -61,7 +159,7 @@ function displayHomePage() {
       </ol>
       <div class="carousel-inner">
         <div class="carousel-item active">
-          <img src="https://images.pexels.com/photos/66869/green-leaf-natural-wallpaper-royalty-free-66869.jpeg?auto=compress&cs=tinysrgb&h=750&w=1260" alt="">
+          <img src="https://images.pexels.com/photos/66869/green-leaf-natural-wallpaper-royalty-free-66869.jpeg?auto=compress&cs=tinysrgb&h=750&w=1260" alt="" >
           <div class="container">
             <div class="carousel-caption text-left">
               <h1>Example headline.</h1>
