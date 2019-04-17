@@ -63,11 +63,21 @@ class Listing {
     `
   }
 
-  static rendorAll() {
+  static displayFilteredListings(value) {
+    var filteredListings = Listing.all.filter(listing => listing.name.toLowerCase().includes(value.toLowerCase()))
+    Listing.renderListings(filteredListings)
+  }
+
+  static renderListings(listings) {
     var html = ""
-    Listing.all.forEach(listing => {
+    listings.forEach(listing => {
       html += listing.html()
     })
     document.getElementById("album-container").innerHTML = html
   }
+  static rendorAll() {
+    Listing.renderListings(Listing.all)
+  }
+
+
 }

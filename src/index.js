@@ -1,5 +1,7 @@
 const URL = "http://localhost:3000"
 const CONTENT = document.querySelector("#content")
+const BODY = document.querySelector("body")
+
 
 document.addEventListener("DOMContentLoaded", ()=> {
 
@@ -12,12 +14,18 @@ document.addEventListener("DOMContentLoaded", ()=> {
   document.addEventListener("submit", event => {
     if (event.target.id === "search-form") {
       event.preventDefault()
-
+      if (document.getElementById("listing-title") === undefined) {
+        displayListingPage()
+        Listing.fetchAll()
+        .then(response => Listing.displayFilteredListings(document.getElementById("search-field").value))
+      }
+      Listing.displayFilteredListings(document.getElementById("search-field").value)
     }
   })
   document.addEventListener("click", event => {
     if (event.target.id === "create-account") {
       event.preventDefault()
+      BODY.id = "signin-body"
       displayAccountCreationPage()
     }
     else if (event.target.id === "gallery-btn") {
@@ -28,16 +36,19 @@ document.addEventListener("DOMContentLoaded", ()=> {
     }
     else if (event.target.id === "login") {
       event.preventDefault()
+      BODY.id = "signin-body"
       displayLoginPage()
     }
     else if (event.target.id === "home") {
       event.preventDefault()
+      BODY.id = "home-body"
       Vendor.fetchAll().then(() => {
         displayHomePage()
       })
     }
     else if (event.target.id === "listings") {
       event.preventDefault()
+      BODY.id = "listing-body"
       displayListingPage()
       Listing.fetchAll()
       .then(Listing.rendorAll)
@@ -69,7 +80,7 @@ function displayListingPage() {
 
     <section class="jumbotron text-center bg-white">
       <div class="container">
-        <h1 class="jumbotron-heading">Reptile Listings</h1>
+        <h1 class="jumbotron-heading" id="listing-title">Reptile Listings</h1>
         <p class="lead text-muted">Our full stock of reptiles.</p>
         <p>
           <a href="#" class="btn btn-primary my-2">Learn more about our vendors</a>
@@ -101,7 +112,6 @@ function displayListingPage() {
 
 function displayLoginPage() {
   var loginForm = `
-  <link rel="stylesheet" href="style/signin.css">
   <form class="form-signin">
   <img class="mb-4" src="https://cdn6.aptoide.com/imgs/1/6/d/16d5d8047a00e337c0a79cf2bd622793_icon.png?w=1000" alt="" width="72" height="72">
   <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
@@ -119,7 +129,6 @@ function displayLoginPage() {
 
 function displayAccountCreationPage() {
   var loginForm = `
-  <link rel="stylesheet" href="style/signin.css">
   <form class="form-signin">
   <img class="mb-4" src="https://cdn6.aptoide.com/imgs/1/6/d/16d5d8047a00e337c0a79cf2bd622793_icon.png?w=1000" alt="" width="72" height="72">
   <h1 class="h3 mb-3 font-weight-normal">Create Account</h1>
@@ -143,7 +152,6 @@ function displayHomePage() {
   var featuredVendors = [Vendor.all[0], Vendor.all[2], Vendor.all[3]]
   var homePage = `
   <!-- Custom Style Sheets -->
-    <link rel="stylesheet" href="style/carousel.css">
   <main role="main">
 
     <div id="myCarousel" class="carousel slide" data-ride="carousel">
