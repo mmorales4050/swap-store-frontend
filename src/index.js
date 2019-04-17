@@ -9,12 +9,16 @@ document.addEventListener("DOMContentLoaded", ()=> {
   })
 
   // Event Listeners
+  document.addEventListener("submit", event => {
+    if (event.target.id === "search-form") {
+      event.preventDefault()
+
+    }
+  })
   document.addEventListener("click", event => {
     if (event.target.id === "create-account") {
       event.preventDefault()
       displayAccountCreationPage()
-
-
     }
     else if (event.target.id === "gallery-btn") {
       event.preventDefault()
@@ -63,7 +67,7 @@ function displayListingPage() {
   var listingPage = `
   <main role="main">
 
-    <section class="jumbotron text-center">
+    <section class="jumbotron text-center bg-white">
       <div class="container">
         <h1 class="jumbotron-heading">Reptile Listings</h1>
         <p class="lead text-muted">Our full stock of reptiles.</p>
@@ -96,7 +100,6 @@ function displayListingPage() {
 }
 
 function displayLoginPage() {
-  var style = `<link rel="stylesheet" href="style/signin.css">`
   var loginForm = `
   <link rel="stylesheet" href="style/signin.css">
   <form class="form-signin">
