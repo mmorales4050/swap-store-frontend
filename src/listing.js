@@ -9,9 +9,27 @@ class Listing {
     this.description = listing.description
     this.price = listing.price
     this.image = listing.image
-    this.vendor_id = listing.vendor_id
+    this.vendorId = listing.vendor_id
     this.id = listing.id
+    this.createdAt = listing.created_at
     Listing.all.push(this)
+  }
+
+  timePosted() {
+    var datePosted = new Date(this.createdAt)
+    var currentDate = new Date()
+    var difference = currentDate - datePosted
+    if (difference < 1000) {
+      return `1 second`
+    } else if (difference < 60000) {
+      return `${Math.floor(difference/1000)} seconds`
+    } else if (difference < 3600000) {
+      return `${Math.floor(difference/60000)} minutes`
+    } else if (difference < (86400 * 86400000)) {
+      return `${Math.floor(difference/3600000)} hours`
+    } else {
+      return `${Math.floor(difference/(86400 * 86400000))} days`
+    }
   }
 
   static fetchAll() {
@@ -24,6 +42,7 @@ class Listing {
   }
 
   html() {
+    this.timePosted()
     return `
     <div class="col-md-4">
       <div class="card mb-4 shadow-sm">
@@ -35,9 +54,8 @@ class Listing {
           <div class="d-flex justify-content-between align-items-center">
             <div class="btn-group">
               <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
-              <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
             </div>
-            <small class="text-muted">9 mins</small>
+            <small class="text-muted">${this.timePosted()}</small>
           </div>
         </div>
       </div>

@@ -16,6 +16,12 @@ document.addEventListener("DOMContentLoaded", ()=> {
 
 
     }
+    else if (event.target.id === "gallery-btn") {
+      event.preventDefault()
+      displayListingPage()
+      Listing.fetchAll()
+      .then(Listing.rendorAll)
+    }
     else if (event.target.id === "login") {
       event.preventDefault()
       displayLoginPage()
@@ -60,10 +66,10 @@ function displayListingPage() {
     <section class="jumbotron text-center">
       <div class="container">
         <h1 class="jumbotron-heading">Reptile Listings</h1>
-        <p class="lead text-muted">Something short and leading about the collection below—its contents, the creator, etc. Make it short and sweet, but not too short so folks don’t simply skip over it entirely.</p>
+        <p class="lead text-muted">Our full stock of reptiles.</p>
         <p>
-          <a href="#" class="btn btn-primary my-2">Main call to action</a>
-          <a href="#" class="btn btn-secondary my-2">Secondary action</a>
+          <a href="#" class="btn btn-primary my-2">Learn more about our vendors</a>
+          <a href="#" class="btn btn-secondary my-2">Make an account</a>
         </p>
       </div>
     </section>
@@ -148,8 +154,8 @@ function displayHomePage() {
           <img src="https://images.pexels.com/photos/2062316/pexels-photo-2062316.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260" alt="" >
           <div class="container">
             <div class="carousel-caption text-left">
-              <h1>Example headline.</h1>
-              <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
+              <h1>Leading online reptile market.</h1>
+              <p>The best selection of reptiles, exotic animals and supplies at the best prices.</p>
               <p><a class="btn btn-lg btn-primary" href="#" role="button" id="create-account">Sign up today</a></p>
             </div>
           </div>
@@ -158,8 +164,8 @@ function displayHomePage() {
           <img src="https://images.pexels.com/photos/36448/snake-snape-reptile.jpg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260" alt="">
           <div class="container">
             <div class="carousel-caption">
-              <h1>Another example headline.</h1>
-              <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
+              <h1>Become on of our trusted vendors today.</h1>
+              <p>We work with the lots of top vendors and would love for you to join our team.</p>
               <p><a class="btn btn-lg btn-primary" href="#" role="button">Learn more</a></p>
             </div>
           </div>
@@ -168,9 +174,9 @@ function displayHomePage() {
           <img src="https://images.pexels.com/photos/751676/pexels-photo-751676.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260" alt="">
           <div class="container">
             <div class="carousel-caption text-right">
-              <h1>One more for good measure.</h1>
-              <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
-              <p><a class="btn btn-lg btn-primary" href="#" role="button">Browse gallery</a></p>
+              <h1>See the latest reptile listings.</h1>
+              <p>We have a huge selection of exotcis.</p>
+              <p><a class="btn btn-lg btn-primary" href="#" role="button" id="gallery-btn">Browse gallery</a></p>
             </div>
           </div>
         </div>
