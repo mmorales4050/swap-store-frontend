@@ -91,6 +91,12 @@ document.addEventListener("DOMContentLoaded", ()=> {
         displayHomePage()
       })
     }
+    else if (event.target.id === "events") {
+      event.preventDefault()
+      activatePageLink("events")
+
+      displayEventsPage()
+    }
     else if (event.target.id === "account-page") {
       event.preventDefault()
       activatePageLink("account-page")
@@ -148,20 +154,57 @@ function activatePageLink(id) {
   try {document.querySelector(".nav-link.active").classList.remove("active")} catch {}
   document.getElementById(id).classList.add("active")
 }
+
+function displayEventsPage() {
+  // Event Name, Date/Time, Description, Cost, Hours, Location, Phone, contact email, website
+  var eventsPage = `<table class="table table-hover">
+  <thead>
+    <tr>
+      <th scope="col">Event</th>
+      <th scope="col">Location</th>
+      <th scope="col">Date</th>
+      <th scope="col">Hours</th>
+      <th scope="col">Cost</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th scope="row">All Maryland Reptile Show</th>
+      <td>Community Center
+100 Lagaret Lane
+Havre de Grace, MD
+</td>
+      <td>May 4, 2019</td>
+      <td>09:00 AM until 03:00 PM</td>
+      <td>$8.00</td>
+    </tr>
+    <tr>
+      <th scope="row">2</th>
+      <td>Jacob</td>
+      <td>Thornton</td>
+      <td>@fat</td>
+    </tr>
+    <tr>
+      <th scope="row">3</th>
+      <td colspan="2">Larry the Bird</td>
+      <td>@twitter</td>
+    </tr>
+  </tbody>
+</table>`
+ CONTENT.innerHTML = eventsPage
+}
 function displayListingPage() {
   var listingPage = `
+  <div class="nav-scroller bg-white shadow-sm sticky-top">
+  <nav class="nav nav-underline">
+    <a class="nav-link" href="#" id="sort-newest">Most Recent</a>
+    <a class="nav-link" href="#">Distance</a>
+    <a class="nav-link" href="#">Price</a>
+  </nav>
+</div>
   <main role="main">
 
-    <section class="jumbotron text-center bg-white">
-      <div class="container">
-        <h1 class="jumbotron-heading" id="listing-title">Reptile Listings</h1>
-        <p class="lead text-muted">Our full stock of reptiles.</p>
-        <p>
-          <a href="#" class="btn btn-primary my-2">Learn more about our vendors</a>
-          <a href="#" class="btn btn-secondary my-2">Make an account</a>
-        </p>
-      </div>
-    </section>
+
 
     <div class="album py-5 bg-light">
       <div class="container">
