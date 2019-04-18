@@ -156,42 +156,46 @@ function activatePageLink(id) {
 }
 
 function displayEventsPage() {
+  fetch(URL + "/events").then(response => response.json())
+  .then(reptileEvents => {
+    var eventsHTML = ""
+
+    reptileEvents.forEach(reptileEvent => {
+      var formattedCost = reptileEvent.cost
+      if (formattedCost.length === 1) {
+        formattedCost = "$" + formattedCost + ".00"
+      }
+      else if (!formattedCost.includes("$")) {
+        formattedCost = "$" + formattedCost
+      }
+      var eventHTML = `<tr id="${reptileEvent.id}-event">
+        <th scope="row">${reptileEvent.name}</th>
+        <td>${reptileEvent.location}</td>
+        <td>${reptileEvent.date}</td>
+        <td>${reptileEvent.hours}</td>
+        <td>${formattedCost}</td>
+      </tr>`
+      eventsHTML += eventHTML
+    })
+    var eventsPage = `<table class="table table-hover">
+    <thead class="thead-light">
+      <tr>
+        <th scope="col">Event</th>
+        <th scope="col">Location</th>
+        <th scope="col">Date</th>
+        <th scope="col">Hours</th>
+        <th scope="col">Cost</th>
+      </tr>
+    </thead>
+    <tbody>
+    ${eventsHTML}
+    </tbody>
+  </table>`
+    CONTENT.innerHTML = eventsPage
+  })
   // Event Name, Date/Time, Description, Cost, Hours, Location, Phone, contact email, website
-  var eventsPage = `<table class="table table-hover">
-  <thead>
-    <tr>
-      <th scope="col">Event</th>
-      <th scope="col">Location</th>
-      <th scope="col">Date</th>
-      <th scope="col">Hours</th>
-      <th scope="col">Cost</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th scope="row">All Maryland Reptile Show</th>
-      <td>Community Center
-100 Lagaret Lane
-Havre de Grace, MD
-</td>
-      <td>May 4, 2019</td>
-      <td>09:00 AM until 03:00 PM</td>
-      <td>$8.00</td>
-    </tr>
-    <tr>
-      <th scope="row">2</th>
-      <td>Jacob</td>
-      <td>Thornton</td>
-      <td>@fat</td>
-    </tr>
-    <tr>
-      <th scope="row">3</th>
-      <td colspan="2">Larry the Bird</td>
-      <td>@twitter</td>
-    </tr>
-  </tbody>
-</table>`
- CONTENT.innerHTML = eventsPage
+
+
 }
 function displayListingPage() {
   var listingPage = `
