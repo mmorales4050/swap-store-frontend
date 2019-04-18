@@ -79,5 +79,45 @@ class Listing {
     Listing.renderListings(Listing.all)
   }
 
+  static displayCreateListingPage() {
+    BODY.id = "signin-body"
+    var loginForm = `
+    <center>
+    <div class="col-md-4">
+      <div class="card mb-4 shadow-sm">
+        <img src="" alt="" width="100%" height="225" background="#55595c" color="#eceeef" class="card-img-top" text="Thumbnail">
+        <div class="card-body">
+        <h3 class="card-text"></h3>
+        <h4 class="card-text">$0</h4>
+          <p class="card-text"></p>
+          <div class="d-flex justify-content-between align-items-center">
+            <div class="btn-group">
+              <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
+            </div>
+            <small class="text-muted"></small>
+          </div>
+        </div>
+      </div>
+    </div>
+    </center>
+    <form class="form-signin">
+    <h1 class="h3 mb-3 font-weight-normal">New Listing</h1>
+    <label for="listingTitle" class="sr-only">Listing Title</label>
+    <input type="title" id="image" class="form-control" placeholder="Image URL" required autofocus>
+    <label for="listingTitle" class="sr-only">Listing Title</label>
+    <input type="title" id="title" class="form-control" placeholder="Listing Title" required autofocus>
+    <label for="price" class="sr-only">Price</label>
+    <input type="price" id="price" class="form-control" placeholder="Price" required>
+    <label for="listingTitle" class="sr-only">Listing Title</label>
+    <textarea type="title" id="description" class="form-control" placeholder="Description" required autofocus></textarea>
+    <div class="checkbox mb-3">
+    </div>
+    <button class="btn btn-lg btn-primary btn-block" type="submit" id="create-listing">Create</button>
+    <p class="mt-5 mb-3 text-muted">&copy; 2019</p>
+  </form>`
+    CONTENT.innerHTML = loginForm
+
+  }
+
 
 }

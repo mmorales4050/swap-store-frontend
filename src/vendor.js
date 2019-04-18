@@ -1,5 +1,3 @@
-
-
 class Vendor {
 
   static all = []
@@ -50,21 +48,31 @@ class Vendor {
     `
   }
   displayAccountPage() {
+    BODY.id = "listing-body"
+    try{
+      document.getElementById("create-account").innerText = "Account Page"
+      try {document.querySelector(".nav-link.active").classList.remove("active")} catch {}
+      document.getElementById("create-account").classList.add("active")
+      document.getElementById("create-account").id = "account-page"
+      document.getElementById("login").innerText = "Logout"
+      document.getElementById("login").id = "logout"
+    } catch {}
     var listingGroupHTML = ""
-    var accountListings = Listing.all.filter(listing => listing.vendor_id === this.id)
+    var accountListings = Listing.all.filter(listing => listing.vendorId === this.id)
     accountListings.forEach(listing => {
       listingGroupHTML += this.listingHTML(listing)
     })
     var listingPage = `
     <main role="main">
 
-      <section class="jumbotron text-center">
+      <section class="jumbotron text-center bg-white">
         <div class="container">
-          <h1 class="jumbotron-heading">Account Page</h1>
+          <h1 class="jumbotron-heading">${this.userName}</h1>
+          <img src="${this.image}" alt="" width="140" height="140" background="#777" color="#777" class="rounded-circle">
           <p class="lead text-muted">Something short and leading about the collection below—its contents, the creator, etc. Make it short and sweet, but not too short so folks don’t simply skip over it entirely.</p>
           <p>
-            <a href="#" class="btn btn-primary my-2">Main call to action</a>
-            <a href="#" class="btn btn-secondary my-2">Secondary action</a>
+            <a href="#" class="btn btn-primary my-2" id="vendor-create-listing">Create New Listing</a>
+            <a href="#" class="btn btn-secondary my-2">Edit Account</a>
           </p>
         </div>
       </section>

@@ -7,6 +7,7 @@ document.addEventListener("DOMContentLoaded", ()=> {
 
   // Display home page when user first visits site
   Vendor.fetchAll().then(() => {
+    activatePageLink("home")
     displayHomePage()
   })
 
@@ -14,22 +15,42 @@ document.addEventListener("DOMContentLoaded", ()=> {
   document.addEventListener("submit", event => {
     if (event.target.id === "search-form") {
       event.preventDefault()
-      if (document.getElementById("listing-title") === undefined) {
+      if (document.getElementById("listing-title") === null) {
+        activatePageLink("listings")
         displayListingPage()
         Listing.fetchAll()
         .then(response => Listing.displayFilteredListings(document.getElementById("search-field").value))
       }
       Listing.displayFilteredListings(document.getElementById("search-field").value)
+      document.getElementById("search-field").value = ""
+      document.getElementById("search-field").blur()
     }
   })
   document.addEventListener("click", event => {
     if (event.target.id === "create-account") {
       event.preventDefault()
       BODY.id = "signin-body"
+      activatePageLink("create-account")
       displayAccountCreationPage()
+    }
+    else if (event.target.id === "vendor-create-listing") {
+      event.preventDefault()
+      Listing.displayCreateListingPage()
+    }
+    else if (event.target.id === "create-listing") {
+      event.preventDefault()
+      // Create new listing
+      var title = document.getElementById("title").value
+      var price = document.getElementById("price").value
+      var image = document.getElementById("image").value
+      var description = document.getElementById("description").value
+      var newListing = {name: title, description: description, price: price, image: image, vendor_id: currentVendor.id, created_at: new Date()}
+      console.log(newListing)
     }
     else if (event.target.id === "gallery-btn") {
       event.preventDefault()
+      activatePageLink("listings")
+
       displayListingPage()
       Listing.fetchAll()
       .then(Listing.rendorAll)
@@ -37,11 +58,30 @@ document.addEventListener("DOMContentLoaded", ()=> {
     else if (event.target.id === "login") {
       event.preventDefault()
       BODY.id = "signin-body"
+      activatePageLink("login")
+
       displayLoginPage()
     }
     else if (event.target.id === "home") {
       event.preventDefault()
-      BODY.id = "home-body"
+      activatePageLink("home")
+
+      Vendor.fetchAll().then(() => {
+        displayHomePage()
+      })
+    }
+    else if (event.target.id === "account-page") {
+      event.preventDefault()
+      activatePageLink("account-page")
+
+      Vendor.fetchAll().then(() => {
+        displayAccountPage()
+      })
+    }
+    else if (event.target.id === "home") {
+      event.preventDefault()
+      activatePageLink("home")
+
       Vendor.fetchAll().then(() => {
         displayHomePage()
       })
@@ -49,6 +89,8 @@ document.addEventListener("DOMContentLoaded", ()=> {
     else if (event.target.id === "listings") {
       event.preventDefault()
       BODY.id = "listing-body"
+      activatePageLink("listings")
+
       displayListingPage()
       Listing.fetchAll()
       .then(Listing.rendorAll)
@@ -66,14 +108,25 @@ document.addEventListener("DOMContentLoaded", ()=> {
             .then(() => {
 
               vendor.displayAccountPage()
+              currentVendor = vendor
             })
           }
         })
       })
     }
   })
+  // Automatically login user for testing
+  document.querySelector("#login").click()
+  document.querySelector("#inputEmail").value = "lm@email.com"
+  document.querySelector("#inputUsername").value = "LizardsandMore"
+  document.querySelector("#sign-in").click()
+
 })
 
+function activatePageLink(id) {
+  try {document.querySelector(".nav-link.active").classList.remove("active")} catch {}
+  document.getElementById(id).classList.add("active")
+}
 function displayListingPage() {
   var listingPage = `
   <main role="main">
@@ -122,7 +175,7 @@ function displayLoginPage() {
   <div class="checkbox mb-3">
   </div>
   <button class="btn btn-lg btn-primary btn-block" type="submit" id="sign-in">Sign in</button>
-  <p class="mt-5 mb-3 text-muted">&copy; 2017-{{ site.time | date: "%Y" }}</p>
+  <p class="mt-5 mb-3 text-muted">&copy; 2019</p>
 </form>`
   CONTENT.innerHTML = loginForm
 }
@@ -142,7 +195,7 @@ function displayAccountCreationPage() {
     </label>
   </div>
   <button class="btn btn-lg btn-primary btn-block" type="submit" id="create-account">Create Account</button>
-  <p class="mt-5 mb-3 text-muted">&copy; 2017-{{ site.time | date: "%Y" }}</p>
+  <p class="mt-5 mb-3 text-muted">&copy; 2019</p>
 </form>`
   CONTENT.innerHTML = loginForm
 }
@@ -277,7 +330,7 @@ function displayHomePage() {
     <!-- FOOTER -->
     <footer class="container">
       <p class="float-right"><a href="#">Back to top</a></p>
-      <p>&copy; 2017-{{ site.time | date: "%Y" }} Company, Inc. &middot; <a href="#">Privacy</a> &middot; <a href="#">Terms</a></p>
+      <p>&copy; 2019 Company, Inc. &middot; <a href="#">Privacy</a> &middot; <a href="#">Terms</a></p>
     </footer>
   </main>`
   CONTENT.innerHTML = homePage
