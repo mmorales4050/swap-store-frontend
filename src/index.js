@@ -26,12 +26,29 @@ document.addEventListener("DOMContentLoaded", ()=> {
       document.getElementById("search-field").blur()
     }
   })
+  document.addEventListener("input", event => {
+    switch (event.target.id) {
+      case "title":
+        document.getElementById("card-title").innerText = event.target.value
+        break;
+      case "image":
+        document.getElementById("card-image").src = event.target.value
+        break;
+      case "price":
+        document.getElementById("card-price").innerText = `$${event.target.value}`
+        break;
+      case "description":
+        document.getElementById("card-description").innerText = event.target.value
+        break;
+      default:
+    }
+  })
   document.addEventListener("click", event => {
     if (event.target.id === "create-account") {
       event.preventDefault()
       BODY.id = "signin-body"
       activatePageLink("create-account")
-      displayAccountCreationPage()
+      currentVendor.displayAccountCreationPage()
     }
     else if (event.target.id === "vendor-create-listing") {
       event.preventDefault()
@@ -44,8 +61,12 @@ document.addEventListener("DOMContentLoaded", ()=> {
       var price = document.getElementById("price").value
       var image = document.getElementById("image").value
       var description = document.getElementById("description").value
-      var newListing = {name: title, description: description, price: price, image: image, vendor_id: currentVendor.id, created_at: new Date()}
-      console.log(newListing)
+      var newListing = {name: title, description: description, price: price, image: image, vendor_id: currentVendor.id}
+      fetch(URL + "/listings", {
+        method: "POST",
+        headers: {'Content-Type': 'application/json', Accept: 'application/json'},
+        body: JSON.stringify(newListing)
+      }).then(()=>currentVendor.displayAccountPage())
     }
     else if (event.target.id === "gallery-btn") {
       event.preventDefault()
@@ -75,7 +96,7 @@ document.addEventListener("DOMContentLoaded", ()=> {
       activatePageLink("account-page")
 
       Vendor.fetchAll().then(() => {
-        displayAccountPage()
+        currentVendor.displayAccountPage()
       })
     }
     else if (event.target.id === "home") {
