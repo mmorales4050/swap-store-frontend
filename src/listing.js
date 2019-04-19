@@ -71,7 +71,7 @@ class Listing {
   static renderListings(listings) {
     var html = ""
     listings.forEach(listing => {
-      html += listing.html()
+      html = listing.html() + html
     })
     document.getElementById("album-container").innerHTML = html
   }
@@ -91,9 +91,6 @@ class Listing {
         <h4 class="card-text" id="card-price">$0</h4>
           <p class="card-text" id="card-description"></p>
           <div class="d-flex justify-content-between align-items-center">
-            <div class="btn-group">
-              <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
-            </div>
             <small class="text-muted"></small>
           </div>
         </div>
