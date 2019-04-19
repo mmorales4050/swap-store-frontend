@@ -15,7 +15,7 @@ document.addEventListener("DOMContentLoaded", ()=> {
   document.addEventListener("submit", event => {
     if (event.target.id === "search-form") {
       event.preventDefault()
-      if (document.getElementById("listing-title") === null) {
+      if (document.getElementById("album-container") === null) {
         activatePageLink("listings")
         displayListingPage()
         Listing.fetchAll()
@@ -40,7 +40,6 @@ document.addEventListener("DOMContentLoaded", ()=> {
       case "description":
         document.getElementById("card-description").innerText = event.target.value
         break;
-      default:
     }
   })
   document.addEventListener("click", event => {
@@ -177,7 +176,8 @@ function displayEventsPage() {
       </tr>`
       eventsHTML += eventHTML
     })
-    var eventsPage = `<table class="table table-hover">
+    var eventsPage = `
+    <table class="table table-hover">
     <thead class="thead-light">
       <tr>
         <th scope="col">Event</th>
@@ -269,8 +269,12 @@ function displayAccountCreationPage() {
 }
 
 function displayHomePage() {
+  //<img src="https://images.pexels.com/photos/2062316/pexels-photo-2062316.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260" alt="" >
+
   // Choose three unique vendors to feature
   var featuredVendors = [Vendor.all[0], Vendor.all[2], Vendor.all[3]]
+  var images = ""
+  Listing.all.forEach(listing => images +=`<img src=${listing.image} alt="" width="140" height="140" class="">`)
   var homePage = `
   <!-- Custom Style Sheets -->
   <main role="main">
@@ -283,7 +287,9 @@ function displayHomePage() {
       </ol>
       <div class="carousel-inner">
         <div class="carousel-item active">
-          <img src="https://images.pexels.com/photos/2062316/pexels-photo-2062316.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260" alt="" >
+        <div style="min-width:2000px;">
+        ${images}
+        </div>
           <div class="container">
             <div class="carousel-caption text-left">
               <h1>Leading online reptile market.</h1>
