@@ -179,10 +179,36 @@ document.addEventListener("DOMContentLoaded", ()=> {
   //   document.querySelector("#login").click()
   //   scroll(0, "0")})})
   //template
-  //.then(()=>action(, ()=>{}))
-
+  //.then(()=>action(500, ()=>{}))
+  var newName = "Lizard"
+  var newImage = "https://images.pexels.com/photos/584165/pexels-photo-584165.jpeg?cs=srgb&dl=animal-chameleon-close-up-584165.jpg&fm=jpg"
+  var newPrice = "100"
+  var newDescription = "The largest lizard is the Komodo monitor. It can grow longer than a person. The smallest lizard is a tiny gecko."
   action(2000, ()=>{scroll(0, "-50");banner("Welcome to Snake Swap!", "- Checkout what local vendors are selling - See what reptile expos are happing near you! - Make an account to post reptile listings - Take a look at our featured vendors")})
-  //.then(()=>action(4000, ()=>))
+  .then(()=>action(500, ()=>{scroll(3000, "-400")}))
+  .then(()=>action(5000, ()=>{scroll(0, "0");}))
+  .then(()=>action(300, ()=>{banner("Login Page", "Vendors can sign into their account to see their posted listing and to post new listings");document.querySelector("#login").click();}))
+  .then(()=>action(300, ()=>{document.querySelector("#inputEmail").value = "lm@email.com";document.querySelector("#inputUsername").value = "LizardsandMore";}))
+  .then(()=>action(3000, ()=>{document.querySelector("#sign-in").click();}))
+  .then(()=>action(0, ()=>{banner("Account Page", "On your account page you can see all the listings that you have posted and you can post new listings")}))
+  .then(()=>action(3000, ()=>{scroll(6000, "-2000")}))
+  .then(()=>action(7000, ()=>{banner("New Listing!", "Lets make a new listing for LizardsandMore");scroll(3000, 0, -2000)}))
+  .then(()=>action(3500, ()=>{document.querySelector("#vendor-create-listing").click();banner("Create Listing Page", "Lets enter an image, title, price, and description to make our new listing")}))
+  .then(()=>action(3000, ()=>{document.querySelector("#image").value = newImage;document.querySelector("#title").value = newName;document.querySelector("#price").value = newPrice;document.querySelector("#description").value = newDescription}))
+  .then(()=>action(3000, ()=>{document.querySelector("#create-listing").click()}))
+  .then(()=>action(3000, ()=>{banner("Listing Made!", "One more listing for our customers to checkout")}))
+  .then(()=>action(3000, ()=>{banner("Listing Page", "Now lets checkout all the listings!")}))
+  .then(()=>action(3000, ()=>{document.querySelector("#listings").click()}))
+  .then(()=>action(3000, ()=>{banner("Search feature", "Now lets search for our listing")}))
+  .then(()=>action(3000, ()=>{document.querySelector("#search-field").value = "lizard"}))
+  .then(()=>action(3000, ()=>{document.querySelector("#search-btn").click()}))
+  .then(()=>action(3000, ()=>{scroll(4000, "-1000")}))
+  .then(()=>action(7000, ()=>{banner("Events Page", "Now Lets take a look at all the reptile events happening")}))
+  .then(()=>action(3000, ()=>{scroll(0, 0);document.querySelector("#events").click()}))
+  .then(()=>action(3000, ()=>{scroll(5000, "-2000")}))
+  .then(()=>action(6000, ()=>{scroll(0, "0");document.querySelector("#home").click();banner("Snake Swap", "Thanks for checking out the website, feel free to take a look around")}))
+  .then(()=>action(4000, ()=>{clearBanner()}))
+
   //.then(()=>action(6000, ()=>{document.querySelector("#login").click();document.querySelector(".mb-4").click();scroll(0, "0")}))
 
 
@@ -196,6 +222,10 @@ function banner(title, content) {
 </div>`
 }
 
+function clearBanner() {
+  document.getElementById("banner").innerHTML = ""
+}
+
 function action(time, cb) {
   return sleep(time).then(()=>{
     cb()
@@ -205,11 +235,11 @@ function action(time, cb) {
 function sleep(ms) {
   return new Promise(resolve => setTimeout(resolve, ms));
 }
-function scroll(duration, pixels) {
+function scroll(duration, finish, start=0) {
   document.getElementById("content").animate([
   // keyframes
-  { transform: 'translateY(0px)' },
-  { transform: `translateY(${pixels}px)` }
+  { transform: `translateY(${start}px)` },
+  { transform: `translateY(${finish}px)` }
 ], {
   // timing options
   duration: duration,
