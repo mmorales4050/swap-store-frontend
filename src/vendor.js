@@ -60,7 +60,7 @@ class Vendor {
     var listingGroupHTML = ""
     var accountListings = Listing.all.filter(listing => listing.vendorId === this.id)
     accountListings.forEach(listing => {
-      listingGroupHTML += this.listingHTML(listing)
+      listingGroupHTML = this.listingHTML(listing) + listingGroupHTML
     })
     var listingPage = `
     <main role="main">
@@ -69,7 +69,7 @@ class Vendor {
         <div class="container">
           <h1 class="jumbotron-heading">${this.userName}</h1>
           <img src="${this.image}" alt="" width="140" height="140" background="#777" color="#777" class="rounded-circle">
-          <p class="lead text-muted">Something short and leading about the collection below—its contents, the creator, etc. Make it short and sweet, but not too short so folks don’t simply skip over it entirely.</p>
+          <p class="lead text-muted">We are dedicated to bringing you top quality service, great selection and guaranteed low prices. Quantity buying allows us to sell our vast selection of REPTILE SUPPLIES at unbelievably low prices. We also offer REPTILES and other exotic animals from around the world. We carry every supply needed to care, maintain, and breed healthy reptiles.</p>
           <p>
             <a href="#" class="btn btn-primary my-2" id="vendor-create-listing">Create New Listing</a>
             <a href="#" class="btn btn-secondary my-2">Edit Account</a>

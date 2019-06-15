@@ -8,7 +8,8 @@ document.addEventListener("DOMContentLoaded", ()=> {
   // Display home page when user first visits site
   Vendor.fetchAll().then(() => {
     activatePageLink("home")
-    displayHomePage()
+    Listing.fetchAll()
+    .then(()=>displayHomePage())
   })
 
   // Event Listeners
@@ -47,7 +48,7 @@ document.addEventListener("DOMContentLoaded", ()=> {
       event.preventDefault()
       BODY.id = "signin-body"
       activatePageLink("create-account")
-      currentVendor.displayAccountCreationPage()
+      displayAccountCreationPage()
     }
     else if (event.target.id === "vendor-create-listing") {
       event.preventDefault()
@@ -104,6 +105,15 @@ document.addEventListener("DOMContentLoaded", ()=> {
         currentVendor.displayAccountPage()
       })
     }
+    else if (event.target.id === "logout") {
+      event.preventDefault()
+      activatePageLink("home")
+      document.getElementById("account-page").innerText = "Create Account"
+      document.getElementById("account-page").id = "create-account"
+      document.getElementById("logout").innerText = "Login"
+      document.getElementById("logout").id = "login"
+      displayHomePage()
+    }
     else if (event.target.id === "home") {
       event.preventDefault()
       activatePageLink("home")
@@ -141,20 +151,109 @@ document.addEventListener("DOMContentLoaded", ()=> {
       })
     }
   })
-  // Automatically login user for testing
-  document.querySelector("#login").click()
-  document.querySelector("#inputEmail").value = "lm@email.com"
-  document.querySelector("#inputUsername").value = "LizardsandMore"
-  document.querySelector("#sign-in").click()
+  //Automate website flow for presentation
+  // sleep(2000).then(()=> {
+  //   scroll(4000, "-240")
+  //   sleep(6000).then(()=> {
+  //     document.querySelector("#login").click()
+  //     scroll(0, "0")
+  //     sleep(2000).then(()=> {
+  //       document.querySelector("#inputEmail").value = "lm@email.com"
+  //       sleep(2000).then(()=> {
+  //         document.querySelector("#inputUsername").value = "LizardsandMore"
+  //         sleep(2000).then(()=> {
+  //           document.querySelector("#sign-in").click()
+  //           sleep(2000).then(()=> {
+  //
+  //           })
+  //         })
+  //       })
+  //     })
+  //   })
+  // })
 
-})
+  // sleep(2000).then(()=> {
+  //   scroll(4000, "-240")})
+  //
+  // .then(()=>{sleep(6000).then(()=> {
+  //   document.querySelector("#login").click()
+  //   scroll(0, "0")})})
+  //template
+  //.then(()=>action(500, ()=>{}))
+  var newName = "Lizard"
+  var newImage = "https://images.pexels.com/photos/584165/pexels-photo-584165.jpeg?cs=srgb&dl=animal-chameleon-close-up-584165.jpg&fm=jpg"
+  var newPrice = "100"
+  var newDescription = "The largest lizard is the Komodo monitor. It can grow longer than a person. The smallest lizard is a tiny gecko."
+  action(2000, ()=>{scroll(0, "-50");banner("Welcome to Snake Swap!", "- Checkout what local vendors are selling - See what reptile expos are happing near you! - Make an account to post reptile listings - Take a look at our featured vendors")})
+  .then(()=>action(500, ()=>{scroll(3000, "-400")}))
+  .then(()=>action(5000, ()=>{scroll(0, "0");}))
+  .then(()=>action(300, ()=>{banner("Login Page", "Vendors can sign into their account to see their posted listing and to post new listings");document.querySelector("#login").click();}))
+  .then(()=>action(300, ()=>{document.querySelector("#inputEmail").value = "lm@email.com";document.querySelector("#inputUsername").value = "LizardsandMore";}))
+  .then(()=>action(3000, ()=>{document.querySelector("#sign-in").click();}))
+  .then(()=>action(0, ()=>{banner("Account Page", "On your account page you can see all the listings that you have posted and you can post new listings")}))
+  .then(()=>action(3000, ()=>{scroll(6000, "-2000")}))
+  .then(()=>action(7000, ()=>{banner("New Listing!", "Lets make a new listing for LizardsandMore");scroll(3000, 0, -2000)}))
+  .then(()=>action(3500, ()=>{document.querySelector("#vendor-create-listing").click();banner("Create Listing Page", "Lets enter an image, title, price, and description to make our new listing")}))
+  .then(()=>action(3000, ()=>{document.querySelector("#image").value = newImage;document.querySelector("#title").value = newName;document.querySelector("#price").value = newPrice;document.querySelector("#description").value = newDescription}))
+  .then(()=>action(3000, ()=>{document.querySelector("#create-listing").click()}))
+  .then(()=>action(3000, ()=>{banner("Listing Made!", "One more listing for our customers to checkout")}))
+  .then(()=>action(3000, ()=>{banner("Listing Page", "Now lets checkout all the listings!")}))
+  .then(()=>action(3000, ()=>{document.querySelector("#listings").click()}))
+  .then(()=>action(3000, ()=>{banner("Search feature", "Now lets search for our listing")}))
+  .then(()=>action(3000, ()=>{document.querySelector("#search-field").value = "lizard"}))
+  .then(()=>action(3000, ()=>{document.querySelector("#search-btn").click()}))
+  .then(()=>action(3000, ()=>{scroll(4000, "-1000")}))
+  .then(()=>action(7000, ()=>{banner("Events Page", "Now Lets take a look at all the reptile events happening")}))
+  .then(()=>action(3000, ()=>{scroll(0, 0);document.querySelector("#events").click()}))
+  .then(()=>action(3000, ()=>{scroll(5000, "-2000")}))
+  .then(()=>action(6000, ()=>{scroll(0, "0");document.querySelector("#home").click();banner("Snake Swap", "Thanks for checking out the website, feel free to take a look around")}))
+  .then(()=>action(4000, ()=>{clearBanner()}))
 
+  //.then(()=>action(6000, ()=>{document.querySelector("#login").click();document.querySelector(".mb-4").click();scroll(0, "0")}))
+
+
+})// End of DOMContentLoaded
+
+function banner(title, content) {
+  document.getElementById("content-container").style = "top-padding:0;"
+  document.getElementById("banner").innerHTML = `<div class="alert alert-success sticky-top" role="alert">
+  <h4>${title}</h4>
+  ${content}
+</div>`
+}
+
+function clearBanner() {
+  document.getElementById("banner").innerHTML = ""
+}
+
+function action(time, cb) {
+  return sleep(time).then(()=>{
+    cb()
+  })
+}
+
+function sleep(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
+function scroll(duration, finish, start=0) {
+  document.getElementById("content").animate([
+  // keyframes
+  { transform: `translateY(${start}px)` },
+  { transform: `translateY(${finish}px)` }
+], {
+  // timing options
+  duration: duration,
+  iterations: 1,
+fill:"forwards"
+});
+}
 function activatePageLink(id) {
   try {document.querySelector(".nav-link.active").classList.remove("active")} catch {}
   document.getElementById(id).classList.add("active")
 }
 
 function displayEventsPage() {
+  BODY.id = "listing-body"
   fetch(URL + "/events").then(response => response.json())
   .then(reptileEvents => {
     var eventsHTML = ""
@@ -199,13 +298,6 @@ function displayEventsPage() {
 }
 function displayListingPage() {
   var listingPage = `
-  <div class="nav-scroller bg-white shadow-sm sticky-top">
-  <nav class="nav nav-underline">
-    <a class="nav-link" href="#" id="sort-newest">Most Recent</a>
-    <a class="nav-link" href="#">Distance</a>
-    <a class="nav-link" href="#">Price</a>
-  </nav>
-</div>
   <main role="main">
 
 
@@ -269,6 +361,7 @@ function displayAccountCreationPage() {
 }
 
 function displayHomePage() {
+  BODY.id = "listing-body"
   //<img src="https://images.pexels.com/photos/2062316/pexels-photo-2062316.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260" alt="" >
 
   // Choose three unique vendors to feature
@@ -298,36 +391,7 @@ function displayHomePage() {
             </div>
           </div>
         </div>
-        <div class="carousel-item">
-          <img src="https://images.pexels.com/photos/36448/snake-snape-reptile.jpg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260" alt="">
-          <div class="container">
-            <div class="carousel-caption">
-              <h1>Become on of our trusted vendors today.</h1>
-              <p>We work with the lots of top vendors and would love for you to join our team.</p>
-              <p><a class="btn btn-lg btn-primary" href="#" role="button">Learn more</a></p>
-            </div>
-          </div>
-        </div>
-        <div class="carousel-item">
-          <img src="https://images.pexels.com/photos/751676/pexels-photo-751676.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260" alt="">
-          <div class="container">
-            <div class="carousel-caption text-right">
-              <h1>See the latest reptile listings.</h1>
-              <p>We have a huge selection of exotcis.</p>
-              <p><a class="btn btn-lg btn-primary" href="#" role="button" id="gallery-btn">Browse gallery</a></p>
-            </div>
-          </div>
-        </div>
       </div>
-      <a class="carousel-control-prev" href="#myCarousel" role="button" data-slide="prev">
-        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-        <span class="sr-only">Previous</span>
-      </a>
-      <a class="carousel-control-next" href="#myCarousel" role="button" data-slide="next">
-        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-        <span class="sr-only">Next</span>
-      </a>
-
     </div>
     <!-- Marketing messaging and featurettes
     ================================================== -->
@@ -339,66 +403,24 @@ function displayHomePage() {
         <div class="col-lg-4">
           <img src="${featuredVendors[0].image}" alt="" width="140" height="140" background="#777" color="#777" class="rounded-circle">
           <h2>${featuredVendors[0].userName}</h2>
-          <p>Donec sed odio dui. Etiam porta sem malesuada magna mollis euismod. Nullam id dolor id nibh ultricies vehicula ut id elit. Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Praesent commodo cursus magna.</p>
+          <p>Our animals are bred and raised by a compassionate team of the best reptile breeders we have to offer. We have over 30 years of experience in the reptile business, and we pack and ship all of our animals ourselves, directly from our facility to your home or business. With over 300 varieties of reptiles, amphibians and exotic mammals, we supply zoos, pet stores, and hobbyists all over the world with quality animals.</p>
           <p><a class="btn btn-secondary" href="#" role="button">View details &raquo;</a></p>
         </div><!-- /.col-lg-4 -->
         <div class="col-lg-4">
           <img src="${featuredVendors[1].image}" alt="" width="140" height="140" background="#777" color="#777" class="rounded-circle">
           <h2>${featuredVendors[1].userName}</h2>
-          <p>Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit. Cras mattis consectetur purus sit amet fermentum. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh.</p>
+          <p>We are dedicated to bringing you top quality service, great selection and guaranteed low prices. Quantity buying allows us to sell our vast selection of REPTILE SUPPLIES at unbelievably low prices. We also offer REPTILES and other exotic animals from around the world. We carry every supply needed to care, maintain, and breed healthy reptiles.</p>
           <p><a class="btn btn-secondary" href="#" role="button">View details &raquo;</a></p>
         </div><!-- /.col-lg-4 -->
         <div class="col-lg-4">
           <img src="${featuredVendors[2].image}" alt="" width="140" height="140" background="#777" color="#777" class="rounded-circle">
           <h2>${featuredVendors[2].userName}</h2>
-          <p>Donec sed odio dui. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Vestibulum id ligula porta felis euismod semper. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.</p>
+          <p>We specialize in the exotic, hard to find reptiles, spiders, hermit crabs
+and animals that you'd have a tough time finding anywhere.
+Take a minute and let us know... we'll take a look around for you!</p>
           <p><a class="btn btn-secondary" href="#" role="button">View details &raquo;</a></p>
         </div><!-- /.col-lg-4 -->
       </div><!-- /.row -->
-
-
-      <!-- START THE FEATURETTES -->
-
-      <hr class="featurette-divider">
-
-      <div class="row featurette">
-        <div class="col-md-7">
-          <h2 class="featurette-heading">First featurette heading. <span class="text-muted">It’ll blow your mind.</span></h2>
-          <p class="lead">Donec ullamcorper nulla non metus auctor fringilla. Vestibulum id ligula porta felis euismod semper. Praesent commodo cursus magna, vel scelerisque nisl consectetur. Fusce dapibus, tellus ac cursus commodo.</p>
-        </div>
-        <div class="col-md-5">
-          {% include icons/placeholder.svg width="500" height="500" background="#eee" color="#aaa" class="bd-placeholder-img-lg featurette-image img-fluid mx-auto" %}
-        </div>
-      </div>
-
-      <hr class="featurette-divider">
-
-      <div class="row featurette">
-        <div class="col-md-7 order-md-2">
-          <h2 class="featurette-heading">Oh yeah, it’s that good. <span class="text-muted">See for yourself.</span></h2>
-          <p class="lead">Donec ullamcorper nulla non metus auctor fringilla. Vestibulum id ligula porta felis euismod semper. Praesent commodo cursus magna, vel scelerisque nisl consectetur. Fusce dapibus, tellus ac cursus commodo.</p>
-        </div>
-        <div class="col-md-5 order-md-1">
-          {% include icons/placeholder.svg width="500" height="500" background="#eee" color="#aaa" class="bd-placeholder-img-lg featurette-image img-fluid mx-auto" %}
-        </div>
-      </div>
-
-      <hr class="featurette-divider">
-
-      <div class="row featurette">
-        <div class="col-md-7">
-          <h2 class="featurette-heading">And lastly, this one. <span class="text-muted">Checkmate.</span></h2>
-          <p class="lead">Donec ullamcorper nulla non metus auctor fringilla. Vestibulum id ligula porta felis euismod semper. Praesent commodo cursus magna, vel scelerisque nisl consectetur. Fusce dapibus, tellus ac cursus commodo.</p>
-        </div>
-        <div class="col-md-5">
-          {% include icons/placeholder.svg width="500" height="500" background="#eee" color="#aaa" class="bd-placeholder-img-lg featurette-image img-fluid mx-auto" %}
-        </div>
-      </div>
-
-      <hr class="featurette-divider">
-
-      <!-- /END THE FEATURETTES -->
-
     </div><!-- /.container -->
 
     <!-- FOOTER -->
